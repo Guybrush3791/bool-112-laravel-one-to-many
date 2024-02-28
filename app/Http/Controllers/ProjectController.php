@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
@@ -27,6 +29,7 @@ class ProjectController extends Controller
     public function store(Request $request) {
 
         $data = $request -> all();
+        // dd($data);
 
         $type = Type :: find($data['type_id']);
 
@@ -35,6 +38,11 @@ class ProjectController extends Controller
         $project -> description = $data['description'];
 
         $project -> type() -> associate($type);
+
+        $img = $data['image'];
+        $img_path = Storage :: disk('public')
+            -> put('images', $img);
+        $project -> image = $img_path;
 
         $project -> save();
 
@@ -63,6 +71,11 @@ class ProjectController extends Controller
         $project -> description = $data['description'];
 
         $project -> type() -> associate($type);
+
+        $img = $data['image'];
+        $img_path = Storage :: disk('public')
+            -> put('images', $img);
+        $project -> image = $img_path;
 
         $project -> save();
 

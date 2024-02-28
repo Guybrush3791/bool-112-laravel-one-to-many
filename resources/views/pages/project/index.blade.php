@@ -21,7 +21,11 @@
                         </li>
                     @endforeach
                 </ul>
+                @if ($project -> image)
+                    <img src="{{ asset('/storage/' . $project -> image) }}" width="300px">
+                @endif
             </li>
+            <hr>
         @endforeach
     </ul>
 @endsection
